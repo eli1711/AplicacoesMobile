@@ -21,8 +21,8 @@ export default function App() {
 
   // Buscar imagens de cachorro
   const fetchDogImages = async () => {
-    if (imageCount < 1 || imageCount > 20) {
-      Alert.alert('Erro', 'Por favor, insira um número entre 1 e 20');
+    if (imageCount < 1 || imageCount > 50) {
+      Alert.alert('Erro', 'Por favor, insira um número entre 1 e 50');
       return;
     }
 
@@ -57,11 +57,11 @@ export default function App() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" />
       <ScrollView style={styles.container}>
-        <Text style={styles.title}>DogsFinder</Text>
-        <Text style={styles.subtitle}>Encontre imagens fofas de cachorros para alegrar seu dia!</Text>
+        <Text style={styles.title}>🐶 DogsFinder 🐕</Text>
+        <Text style={styles.subtitle}>📸 Encontre imagens fofas de cachorros para alegrar seu dia! 🎉</Text>
         
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Quantidade de imagens (1-20):</Text>
+          <Text style={styles.label}>🔢 Quantidade de imagens (1-50):</Text>
           <TextInput
             style={styles.input}
             keyboardType="numeric"
@@ -80,24 +80,30 @@ export default function App() {
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.buttonText}>Buscar Cachorros</Text>
+            <Text style={styles.buttonText}>🎯 Buscar Cachorros 🐾</Text>
           )}
         </TouchableOpacity>
 
         {dogImages.length > 0 && (
           <View style={styles.imagesContainer}>
             <Text style={styles.sectionTitle}>
-              {dogImages.length} {dogImages.length === 1 ? 'imagem encontrada' : 'imagens encontradas'}
+              📷 {dogImages.length} {dogImages.length === 1 ? 'imagem encontrada' : 'imagens encontradas'} 🎊
             </Text>
             {dogImages.map((imageUrl, index) => (
-              <Image 
-                key={index} 
-                source={{ uri: imageUrl }} 
-                style={styles.dogImage}
-                resizeMode="cover"
-              />
+              <View key={index} style={styles.imageWrapper}>
+                <Text style={styles.imageNumber}>🐕 Imagem {index + 1}</Text>
+                <Image 
+                  source={{ uri: imageUrl }} 
+                  style={styles.dogImage}
+                  resizeMode="cover"
+                />
+              </View>
             ))}
           </View>
+        )}
+
+        {!loading && dogImages.length > 0 && (
+          <Text style={styles.footer}>✨ Espero que esses doguinhos tenham alegrado seu dia! 🥰</Text>
         )}
       </ScrollView>
     </SafeAreaView>
@@ -125,6 +131,7 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
     marginBottom: 30,
+    lineHeight: 22,
   },
   inputContainer: {
     marginBottom: 20,
@@ -168,16 +175,34 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 15,
+    marginBottom: 20,
     color: '#333',
     textAlign: 'center',
+  },
+  imageWrapper: {
+    marginBottom: 25,
+    width: '100%',
+    alignItems: 'center',
+  },
+  imageNumber: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#ff6b6b',
+    marginBottom: 8,
   },
   dogImage: {
     width: '100%',
     height: 300,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#eee',
-    marginBottom: 15,
+    borderWidth: 2,
+    borderColor: '#ffd166',
+  },
+  footer: {
+    fontSize: 14,
+    color: '#888',
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 30,
+    fontStyle: 'italic',
   },
 });
